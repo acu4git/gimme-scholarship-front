@@ -29,11 +29,13 @@ const UserButton = ({
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem asChild className="hover:cursor-pointer">
           <Link href={`/users/${userId}`}>マイページ</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <SignOutButton>ログアウト</SignOutButton>
+        <DropdownMenuItem asChild className="hover:cursor-pointer">
+          <SignOutButton>
+            <p>ログアウト</p>
+          </SignOutButton>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

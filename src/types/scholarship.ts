@@ -7,6 +7,7 @@ export type Scholarship = {
   amount_detail: string;
   type_detail: string;
   capacity_detail: string;
+  deadline: string;
   deadline_detail: string;
   contact_point: string;
   remark: string;

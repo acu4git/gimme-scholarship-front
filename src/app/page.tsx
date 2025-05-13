@@ -32,7 +32,7 @@ export default function Top() {
             size="lg"
             className="text-lg bg-white"
           >
-            <Link href="/dashboard">奨学金を探す</Link>
+            <Link href="/scholarships">奨学金を探す</Link>
           </Button>
         </div>
       </div>
