@@ -1,13 +1,20 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import {
+  clerkClient,
+  clerkMiddleware,
+  createRouteMatcher,
+} from "@clerk/nextjs/server";
 
-const isPublicRoute = createRouteMatcher([
-  "/",
-  "/dashboard",
-  "/sign-in(.*)",
-  "/sign-up(.*)",
-]);
+const isPublicRoute = createRouteMatcher(["/"]);
 
 export default clerkMiddleware(async (auth, req) => {
+  const { sessionId } = await auth();
+
+  if (!sessionId) {
+    return;
+  }
+
+  const client = await clerkClient();
+  const token = await client.sessions.getToken(sessionId, "");
   if (!isPublicRoute(req)) {
     // console.log(req);
     // console.log(auth);

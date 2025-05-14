@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import {
   DropdownMenu,
@@ -9,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SignOutButton } from "@clerk/nextjs";
+import Link from "next/link";
 
 const UserButton = ({
   imageUrl,
