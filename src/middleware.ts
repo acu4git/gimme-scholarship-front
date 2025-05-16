@@ -4,7 +4,7 @@ import {
   createRouteMatcher,
 } from "@clerk/nextjs/server";
 
-const isPublicRoute = createRouteMatcher(["/"]);
+const isProtectedRoute = createRouteMatcher(["/onboarding"]);
 
 export default clerkMiddleware(async (auth, req) => {
   const { sessionId } = await auth();
@@ -15,7 +15,8 @@ export default clerkMiddleware(async (auth, req) => {
 
   const client = await clerkClient();
   const token = await client.sessions.getToken(sessionId, "");
-  if (!isPublicRoute(req)) {
+
+  if (isProtectedRoute(req)) {
     // console.log(req);
     // console.log(auth);
     await auth.protect();
