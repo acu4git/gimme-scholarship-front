@@ -1,26 +1,46 @@
 import {
-  clerkClient,
   clerkMiddleware,
   createRouteMatcher,
+  currentUser,
 } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
-const isProtectedRoute = createRouteMatcher(["/onboarding"]);
+const isPublicRoute = createRouteMatcher([
+  "/",
+  "/scholarships(.*)",
+  "/sign-in(.*)",
+  "/sign-up(.*)",
+]);
 
 export default clerkMiddleware(async (auth, req) => {
-  const { sessionId } = await auth();
+  const { userId, sessionClaims } = await auth();
 
-  if (!sessionId) {
+  if (isPublicRoute(req)) {
     return;
   }
 
-  const client = await clerkClient();
-  const token = await client.sessions.getToken(sessionId, "");
-
-  if (isProtectedRoute(req)) {
-    // console.log(req);
-    // console.log(auth);
-    await auth.protect();
+  if (!userId) {
+    const signInUrl = new URL("/sign-in", req.url);
+    signInUrl.searchParams.set("redirect_url", req.url);
+    return NextResponse.redirect(signInUrl);
   }
+
+  let onboarded = sessionClaims?.onboarded;
+
+  if (!onboarded) {
+    const user = await currentUser();
+    onboarded = user?.publicMetadata.onboarded;
+  }
+
+  if (!onboarded && req.nextUrl.pathname !== "/onboarding") {
+    return NextResponse.redirect(new URL("/onboarding", req.url));
+  }
+
+  if (onboarded && req.nextUrl.pathname === "/onboarding") {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
+
+  return NextResponse.next();
 });
 
 export const config = {
