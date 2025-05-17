@@ -1,24 +1,43 @@
-import { auth, clerkClient } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
 import Form from "next/form";
 import { Button } from "@/components/ui/button";
+import { CreateUser } from "@/lib/api/user";
+import { clerkClient, currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 const OnBoardingPage = async () => {
-  const { userId } = await auth();
-
-  if (!userId) {
-    redirect("/");
-  }
-
-  const client = await clerkClient();
-  const user = await client.users.getUser(userId);
-  const emailAddress = user.emailAddresses.find(
-    (e) => e.id === user.primaryEmailAddressId
+  const user = await currentUser();
+  const emailAddress = user?.emailAddresses.find(
+    (e) => e.verification?.status === "verified"
   )?.emailAddress;
+
+  const handleSubmit = async (formData: FormData) => {
+    "use server";
+    try {
+      const res = await CreateUser(formData);
+      if (!res.success) {
+        console.error(res);
+        return;
+      }
+      console.log("created user");
+      const client = await clerkClient();
+      client.users.updateUserMetadata(user!.id, {
+        publicMetadata: {
+          onboarded: true,
+        },
+      });
+      console.log("updated publicMetadata");
+      redirect("/scholarships");
+    } catch (err) {
+      console.error("Catched error at func handleSubmit", err);
+    }
+  };
 
   return (
     <div className="flex justify-center">
-      <Form className="bg-white mt-15 px-5 sm:px-15 py-5 sm:py-10 rounded-xl">
+      <Form
+        action={handleSubmit}
+        className="bg-white mt-15 px-5 sm:px-15 py-5 sm:py-10 rounded-xl"
+      >
         <p className="underline font-bold mb-5 text-xl">初期設定</p>
         <div className="flex justify-between gap-5 my-5">
           <label>Email</label>
@@ -31,7 +50,7 @@ const OnBoardingPage = async () => {
           />
         </div>
         <div className="flex justify-between gap-5 my-5">
-          <label>学部/院</label>
+          <label>所属</label>
           <div className="flex flex-row gap-5">
             <div>
               <input
@@ -41,7 +60,7 @@ const OnBoardingPage = async () => {
                 value="大学生"
                 required
               />
-              <label htmlFor="levelChoice1">大学生</label>
+              <label htmlFor="levelChoice1">学部</label>
             </div>
             <div>
               <input
@@ -51,7 +70,7 @@ const OnBoardingPage = async () => {
                 value="大学院生"
                 required
               />
-              <label htmlFor="levelChoice2">大学院生</label>
+              <label htmlFor="levelChoice2">院</label>
             </div>
           </div>
         </div>
@@ -75,7 +94,7 @@ const OnBoardingPage = async () => {
                 type="radio"
                 id="acceptChoice1"
                 name="accept_email"
-                value="希望する"
+                value="true"
                 required
               />
               <label htmlFor="acceptChoice1">希望する</label>
@@ -85,7 +104,7 @@ const OnBoardingPage = async () => {
                 type="radio"
                 id="acceptChoice2"
                 name="accept_email"
-                value="希望しない"
+                value="false"
                 required
               />
               <label htmlFor="acceptChoice2">希望しない</label>
