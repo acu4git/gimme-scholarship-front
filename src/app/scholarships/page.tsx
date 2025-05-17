@@ -1,4 +1,4 @@
-import fetchScholarships from "@/app/api/scholarship";
+import { fetchScholarships } from "@/lib/api/scholarship";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
