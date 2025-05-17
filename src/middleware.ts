@@ -1,22 +1,24 @@
 import {
+  clerkClient,
   clerkMiddleware,
   createRouteMatcher,
-  currentUser,
 } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 const isPublicRoute = createRouteMatcher([
   "/",
   "/scholarships(.*)",
+  "/onboarding",
   "/sign-in(.*)",
   "/sign-up(.*)",
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
   const { userId, sessionClaims } = await auth();
+  const client = await clerkClient();
 
   if (isPublicRoute(req)) {
-    return;
+    return NextResponse.next();
   }
 
   if (!userId) {
@@ -26,10 +28,16 @@ export default clerkMiddleware(async (auth, req) => {
   }
 
   let onboarded = sessionClaims?.onboarded;
+  console.log("sessionClaims.onboarded:", onboarded);
 
   if (!onboarded) {
-    const user = await currentUser();
-    onboarded = user?.publicMetadata.onboarded;
+    try {
+      const user = await client.users.getUser(userId);
+      onboarded = user?.publicMetadata.onboarded;
+      console.log("user.publicMetadata.onboarded:", onboarded);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   if (!onboarded && req.nextUrl.pathname !== "/onboarding") {
