@@ -1,6 +1,5 @@
 import { Scholarship } from "@/types/scholarship/scholarship";
-
-const apiBaseUrl = process.env.API_BASE_URL ?? "http://localhost:8080";
+import { apiBaseUrl } from "@/lib/api/common";
 
 export async function fetchScholarships(queryParams: {
   [key: string]: string | string[] | undefined;
