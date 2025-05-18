@@ -1,0 +1,34 @@
+name: Deploy to Vercel
+
+# mainブランチにpushをトリガーにする
+on:
+  push:
+    branches:
+      - main
+
+# ジョブを定義
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v3 # リポジトリのコードをクローンする
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3 # node.jsをセットアップする
+        with:
+          node-version: "20" # nodeのバージョン20を指定
+
+      - name: Install dependencies
+        run: npm install # 依存関係をインストール
+
+      - name: Build Next.js project
+        run: npm run build # ビルドする
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25 # Vercelにデプロイする。
+        with: # with以降に必要なパラメータを渡す
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
