@@ -1,5 +1,4 @@
 import { apiBaseUrl } from "@/lib/api/common";
-import { createUserRequestBody } from "@/types/user/user";
 import { auth } from "@clerk/nextjs/server";
 
 export const CreateUser = async (formData: FormData) => {
@@ -10,34 +9,37 @@ export const CreateUser = async (formData: FormData) => {
     return { message: "failed to find JWT token", success: false };
   }
 
-  const email = formData.get("email") as string;
-  const level = formData.get("level") as string;
-  const grade = formData.get("grade") as string;
-  const acceptEmail = formData.get("accept_email") as string;
+  // const email = formData.get("email") as string;
+  // const level = formData.get("level") as string;
+  // const grade = formData.get("grade") as string;
+  // const acceptEmail = formData.get("accept_email") as string;
 
-  console.log({ email, level, grade, acceptEmail });
+  // console.log({ email, level, grade, acceptEmail });
+
+  console.log(formData);
 
   const apiUrl = new URL("/users", apiBaseUrl);
-  const body: createUserRequestBody = {
-    email: `${email}`,
-    level: `${level}`,
-    grade: `${grade}`,
-    accept_email: `${acceptEmail}`,
-  };
 
   try {
     const res = await fetch(apiUrl, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ body }),
+      // body: JSON.stringify({ body }),
+      body: formData,
     });
 
-    const resJson = await res.json();
-    resJson.success = res.ok ? true : false;
-    return resJson;
+    console.log(await res.text());
+
+    if (res.status === 201) {
+      console.log("created user successfully!");
+      return res;
+    } else {
+      const resJson = await res.json();
+      resJson.success = res.ok ? true : false;
+      return resJson;
+    }
   } catch (err) {
     console.error(err);
     return { message: "fetch error", success: false };
