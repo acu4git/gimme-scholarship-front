@@ -14,11 +14,10 @@ const OnBoardingPage = async () => {
     "use server";
     try {
       const res = await CreateUser(formData);
-      if (!res.success) {
+      if (!res.ok) {
         console.error(res);
         return;
       }
-      console.log("created user");
       const client = await clerkClient();
       client.users.updateUserMetadata(user!.id, {
         publicMetadata: {
@@ -26,10 +25,10 @@ const OnBoardingPage = async () => {
         },
       });
       console.log("updated publicMetadata");
-      redirect("/scholarships");
     } catch (err) {
       console.error("Catched error at func handleSubmit", err);
     }
+    redirect("/scholarships");
   };
 
   return (
@@ -45,7 +44,7 @@ const OnBoardingPage = async () => {
             name="email"
             defaultValue={emailAddress}
             type="email"
-            disabled
+            readOnly
             className="border border-black hover:cursor-not-allowed"
           />
         </div>
@@ -57,7 +56,7 @@ const OnBoardingPage = async () => {
                 type="radio"
                 id="levelChoice1"
                 name="level"
-                value="大学生"
+                value="学部生"
                 required
               />
               <label htmlFor="levelChoice1">学部</label>
