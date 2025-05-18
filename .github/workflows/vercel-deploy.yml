@@ -18,7 +18,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3 # node.jsをセットアップする
         with:
-          node-version: "20" # nodeのバージョン20を指定
+          node-version: "24" # nodeのバージョン20を指定
 
       - name: Install dependencies
         run: npm install # 依存関係をインストール
