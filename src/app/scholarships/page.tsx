@@ -110,12 +110,6 @@ const ScholarshipsPage = async ({
                   size="lg"
                   className="bg-white"
                 >
-                  {/* <Link
-                    href={{ pathname: `/scholarships/${row.id}`, query: row }}
-                    className="font-bold"
-                  >
-                    詳細を見る
-                  </Link> */}
                   <ScholarshipDetail detail={row} />
                 </Button>
               </CardFooter>
