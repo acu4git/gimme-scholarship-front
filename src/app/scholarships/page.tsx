@@ -8,8 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Link from "next/link";
 import Form from "next/form";
+import ScholarshipDetail from "@/components/scholarship/detail";
 
 const ScholarshipsPage = async ({
   searchParams,
@@ -40,7 +40,7 @@ const ScholarshipsPage = async ({
           </div>
           <button
             type="submit"
-            className="bg-white px-5 py-2 rounded-lg font-bold hover:cursor-pointer hover:text-accent-foreground"
+            className="bg-white border px-5 py-2 rounded-lg font-bold hover:cursor-pointer hover:text-accent-foreground hover:bg-accent"
           >
             検索
           </button>
@@ -69,9 +69,6 @@ const ScholarshipsPage = async ({
                       ))}
                     </div>
                   </div>
-                  <Button className="bg-white text-black hover:bg-slate-100 hover:cursor-pointer">
-                    ☆
-                  </Button>
                 </div>
               </CardHeader>
               <CardContent>
@@ -113,9 +110,13 @@ const ScholarshipsPage = async ({
                   size="lg"
                   className="bg-white"
                 >
-                  <Link href={`/scholarships/${row.id}`} className="font-bold">
+                  {/* <Link
+                    href={{ pathname: `/scholarships/${row.id}`, query: row }}
+                    className="font-bold"
+                  >
                     詳細を見る
-                  </Link>
+                  </Link> */}
+                  <ScholarshipDetail detail={row} />
                 </Button>
               </CardFooter>
             </Card>

@@ -13,5 +13,3 @@ export type Scholarship = {
   remark: string;
   posting_date: string;
 };
-
-export type Scholarships = Scholarship[];
