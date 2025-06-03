@@ -5,7 +5,7 @@
 **バックエンド**: https://github.com/acu4git/gimme-scholarship/<br>
 **インフラ**: https://github.com/acu4git/gimme-scholarship-terraform/
 
-![top page](image.png)
+![top page](top_page.png)
 
 # 開発環境
 
