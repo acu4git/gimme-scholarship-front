@@ -20,11 +20,9 @@ const FavoriteButton = ({ info }: { info: Scholarship }) => {
       ? deleteFavoriteScholarship(info.id)
       : postFavoriteScholarship(info.id));
     if (res.success) {
-      if (isFavorite) {
-        toast("お気に入り解除しました");
-      } else {
-        toast("お気に入り登録しました");
-      }
+      toast(isFavorite ? "お気に入り解除しました" : "お気に入り登録しました", {
+        description: info.name,
+      });
       setIsFavorite(!isFavorite);
     }
   };
