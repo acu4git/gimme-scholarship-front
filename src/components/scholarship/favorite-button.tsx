@@ -9,6 +9,7 @@ import {
   deleteFavoriteScholarship,
   postFavoriteScholarship,
 } from "@/lib/api/scholarship";
+import { toast } from "sonner";
 
 const FavoriteButton = ({ info }: { info: Scholarship }) => {
   const [isFavorite, setIsFavorite] = useState<boolean>(info.is_favorite);
@@ -19,6 +20,11 @@ const FavoriteButton = ({ info }: { info: Scholarship }) => {
       ? deleteFavoriteScholarship(info.id)
       : postFavoriteScholarship(info.id));
     if (res.success) {
+      if (isFavorite) {
+        toast("お気に入り解除しました");
+      } else {
+        toast("お気に入り登録しました");
+      }
       setIsFavorite(!isFavorite);
     }
   };
