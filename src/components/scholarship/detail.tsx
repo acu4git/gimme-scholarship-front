@@ -18,11 +18,11 @@ const ScholarshipDetail = ({ detail }: { detail: Scholarship }) => {
           詳細を見る
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-4xl bg-white">
+      <DialogContent className="h-2/3 sm:max-w-4xl bg-white">
         <DialogHeader>
           <DialogTitle>{detail.name}</DialogTitle>
         </DialogHeader>
-        <div className="whitespace-pre-line grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 text-xs gap-2">
+        <div className="overflow-scroll whitespace-pre-line grid grid-cols-1 sm:overflow-auto sm:grid-cols-2 lg:grid-cols-3 text-xs gap-2">
           <div className="border rounded-2xl col-span-1">
             <p className="font-bold text-xs pl-2 pt-2 ml-2 underline">金額</p>
             <p className="p-2">{detail.amount_detail}</p>
