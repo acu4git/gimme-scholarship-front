@@ -22,7 +22,7 @@ const ScholarshipDetail = ({ detail }: { detail: Scholarship }) => {
         <DialogHeader>
           <DialogTitle>{detail.name}</DialogTitle>
         </DialogHeader>
-        <div className="whitespace-pre-line grid grid-cols-2 lg:grid-cols-4 text-xs gap-2">
+        <div className="whitespace-pre-line grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 text-xs gap-2">
           <div className="border rounded-2xl col-span-1">
             <p className="font-bold text-xs pl-2 pt-2 ml-2 underline">金額</p>
             <p className="p-2">{detail.amount_detail}</p>
@@ -38,8 +38,8 @@ const ScholarshipDetail = ({ detail }: { detail: Scholarship }) => {
             </p>
           </div>
           <div className="border rounded-2xl col-span-1">
-            <p className="font-bold text-xs pl-2 pt-2 ml-2 underline">締切日</p>
-            <p className="p-2">{detail.deadline_detail}</p>
+            <p className="font-bold text-xs pl-2 pt-2 ml-2 underline">対象</p>
+            <p className="p-2">{detail.target_detail}</p>
           </div>
           <div className="border rounded-2xl col-span-1">
             <p className="font-bold text-xs pl-2 pt-2 ml-2 underline">住所</p>
@@ -52,15 +52,19 @@ const ScholarshipDetail = ({ detail }: { detail: Scholarship }) => {
             <p className="p-2">{detail.contact_point}</p>
           </div>
           <div className="border rounded-2xl col-span-1">
-            <p className="font-bold text-xs pl-2 pt-2 ml-2 underline">備考</p>
-            <p className="p-2">{detail.remark}</p>
+            <p className="font-bold text-xs pl-2 pt-2 ml-2 underline">締切日</p>
+            <p className="p-2">{detail.deadline_detail}</p>
           </div>
           <div className="border rounded-2xl col-span-1">
             <p className="font-bold text-xs pl-2 pt-2 ml-2 underline">掲示日</p>
             <p className="p-2">{detail.posting_date}</p>
           </div>
+          <div className="border rounded-2xl col-span-1">
+            <p className="font-bold text-xs pl-2 pt-2 ml-2 underline">備考</p>
+            <p className="p-2">{detail.remark}</p>
+          </div>
         </div>
-        <DialogFooter className="sm:justify-start">
+        <DialogFooter className="sm:justify-center">
           <DialogClose asChild>
             <Button
               type="button"

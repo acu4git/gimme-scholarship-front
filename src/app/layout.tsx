@@ -3,6 +3,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { jaJP } from "@clerk/localizations";
 import Header from "@/components/header/header";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "KITクレクレ奨学金",
@@ -20,6 +21,7 @@ export default function RootLayout({
         <body>
           <Header />
           {children}
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>

@@ -1,10 +1,46 @@
-import { Button } from "@/components/ui/button";
+"use client";
 
-const FavoriteButton = () => {
+import { Button } from "@/components/ui/button";
+import { Scholarship } from "@/types/scholarship/scholarship";
+import { useUser } from "@clerk/nextjs";
+import LoginRequriredAlert from "@/components/scholarship/alert";
+import { useState } from "react";
+import {
+  deleteFavoriteScholarship,
+  postFavoriteScholarship,
+} from "@/lib/api/scholarship";
+
+const FavoriteButton = ({ info }: { info: Scholarship }) => {
+  const [isFavorite, setIsFavorite] = useState<boolean>(info.is_favorite);
+  const { isSignedIn } = useUser();
+
+  const toggleFavorite = async () => {
+    const res = await (isFavorite
+      ? deleteFavoriteScholarship(info.id)
+      : postFavoriteScholarship(info.id));
+    if (res.success) {
+      setIsFavorite(!isFavorite);
+    }
+  };
+
   return (
-    <Button className="bg-white text-black hover:bg-slate-100 hover:cursor-pointer">
-      ☆
-    </Button>
+    <>
+      {isSignedIn ? (
+        <Button
+          onClick={toggleFavorite}
+          variant="outline"
+          className={
+            isFavorite
+              ? "bg-stone-600 text-white hover:cursor-pointer hover:bg-black hover:text-accent"
+              : "bg-amber-300 text-white hover:cursor-pointer hover:bg-amber-400 hover:text-accent"
+          }
+        >
+          {isFavorite ? <p>お気に入り解除</p> : <p>お気に入り登録</p>}
+        </Button>
+      ) : (
+        <LoginRequriredAlert />
+      )}
+    </>
   );
 };
 

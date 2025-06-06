@@ -1,6 +1,5 @@
 import { fetchScholarships } from "@/lib/api/scholarship";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import Form from "next/form";
 import ScholarshipDetail from "@/components/scholarship/detail";
+import FavoriteButton from "@/components/scholarship/favorite-button";
 
 const ScholarshipsPage = async ({
   searchParams,
@@ -103,15 +103,9 @@ const ScholarshipsPage = async ({
                   </div>
                 </div>
               </CardContent>
-              <CardFooter className="flex justify-center">
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="bg-white"
-                >
-                  <ScholarshipDetail detail={row} />
-                </Button>
+              <CardFooter className="flex justify-center gap-3">
+                <ScholarshipDetail detail={row} />
+                <FavoriteButton info={row} />
               </CardFooter>
             </Card>
           ))}

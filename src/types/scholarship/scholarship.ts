@@ -12,4 +12,5 @@ export type Scholarship = {
   contact_point: string;
   remark: string;
   posting_date: string;
+  is_favorite: boolean;
 };
