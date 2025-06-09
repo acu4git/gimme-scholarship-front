@@ -10,12 +10,15 @@ import {
   postFavoriteScholarship,
 } from "@/lib/api/scholarship";
 import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 const FavoriteButton = ({ info }: { info: Scholarship }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isFavorite, setIsFavorite] = useState<boolean>(info.is_favorite);
   const { isSignedIn } = useUser();
 
   const toggleFavorite = async () => {
+    setIsLoading(true);
     const res = await (isFavorite
       ? deleteFavoriteScholarship(info.id)
       : postFavoriteScholarship(info.id));
@@ -25,6 +28,7 @@ const FavoriteButton = ({ info }: { info: Scholarship }) => {
       });
       setIsFavorite(!isFavorite);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -32,6 +36,7 @@ const FavoriteButton = ({ info }: { info: Scholarship }) => {
       {isSignedIn ? (
         <Button
           onClick={toggleFavorite}
+          disabled={isLoading}
           variant="outline"
           className={
             isFavorite
@@ -39,7 +44,16 @@ const FavoriteButton = ({ info }: { info: Scholarship }) => {
               : "bg-amber-300 text-white hover:cursor-pointer hover:bg-amber-400 hover:text-accent"
           }
         >
-          {isFavorite ? <p>お気に入り解除</p> : <p>お気に入り登録</p>}
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              処理中...
+            </>
+          ) : isFavorite ? (
+            <p>お気に入り解除</p>
+          ) : (
+            <p>お気に入り登録</p>
+          )}
         </Button>
       ) : (
         <LoginRequriredAlert />
