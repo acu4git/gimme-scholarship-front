@@ -1,8 +1,21 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 export default function Top() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    router.push("/scholarships");
+  };
+
   return (
     <>
       <div className="h-[90vh]">
@@ -27,12 +40,20 @@ export default function Top() {
         />
         <div className="flex justify-center">
           <Button
-            asChild
+            onClick={handleClick}
+            disabled={isLoading}
             variant="outline"
             size="lg"
-            className="text-lg bg-white"
+            className="text-lg bg-white hover:cursor-pointer"
           >
-            <Link href="/scholarships">奨学金を探す</Link>
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                読み込み中...
+              </>
+            ) : (
+              "奨学金を探す"
+            )}
           </Button>
         </div>
       </div>
