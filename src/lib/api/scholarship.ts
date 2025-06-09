@@ -37,8 +37,6 @@ export async function postFavoriteScholarship(id: number) {
   const { getToken } = await auth();
   const token = await getToken();
 
-  console.log(`token: ${token}`);
-
   if (!token) {
     return { success: false, message: "Token required" };
   }
