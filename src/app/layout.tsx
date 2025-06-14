@@ -6,6 +6,8 @@ import Header from "@/components/header/header";
 import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://kit-gimme-scholarship.com"),
+
   title: "KITクレクレ奨学金",
   icons: {
     icon: [
