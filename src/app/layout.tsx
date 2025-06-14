@@ -7,7 +7,18 @@ import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "KITクレクレ奨学金",
-  description: "奨学金一覧を閲覧可能．また，更新情報をメール通知．",
+  openGraph: {
+    title: "KITクレクレ奨学金",
+    description:
+      "KITクレクレ奨学金は、京都工芸繊維大学の学生を対象とした奨学金を検索できるサイトです。効率良く奨学金を探して時間を有効活用しよう！",
+    images: [
+      {
+        url: "/ogp/money_eyes.svg",
+        width: 500,
+        height: 500,
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
