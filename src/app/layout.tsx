@@ -34,7 +34,7 @@ export const metadata: Metadata = {
       "KITクレクレ奨学金は、京都工芸繊維大学の学生を対象とした奨学金を検索できるサイトです。効率良く奨学金を探して時間を有効活用しよう！",
     images: [
       {
-        url: "/ogp/image.svg",
+        url: "/ogp/image.png",
         width: 500,
         height: 500,
       },
