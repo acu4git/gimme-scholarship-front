@@ -49,7 +49,7 @@ export const CreateUser = async (formData: FormData) => {
 };
 
 export const UpdateUser = async (
-  prevState: any,
+  prevState: { message: string } | null,
   formData: FormData
 ): Promise<{ message: string } | null> => {
   const { getToken } = await auth();
