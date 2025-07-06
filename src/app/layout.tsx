@@ -48,7 +48,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider localization={jaJP}>
+    <ClerkProvider
+      //  localization={jaJP}
+      localization={{
+        ...jaJP,
+        userProfile: {
+          ...jaJP.userProfile,
+          deletePage: {
+            title: "アカウントの削除",
+            messageLine1: "アカウントを削除してもよろしいですか？",
+            messageLine2: "この操作は永久的で取り消すことはできません。",
+            actionDescription:
+              "続行するには「アカウント削除」と入力してください。",
+            confirm: "削除",
+          },
+        },
+      }}
+    >
       <html lang="ja">
         <body>
           <Header />
