@@ -1,9 +1,20 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
-import { jaJP } from "@clerk/localizations";
 import Header from "@/components/header/header";
 import { Toaster } from "@/components/ui/sonner";
+import { jaJP } from "@clerk/localizations";
+import { ClerkProvider } from "@clerk/nextjs";
+import type { Metadata } from "next";
+import { Noto_Sans_JP, Noto_Serif_JP } from "next/font/google";
+import "./globals.css";
+
+const notoSansJp = Noto_Sans_JP({
+  variable: "--font-noto-sans-jp",
+  subsets: ["latin"],
+});
+
+const notoSerifJp = Noto_Serif_JP({
+  variable: "--font-noto-serif-jp",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kit-gimme-scholarship.com"),
@@ -65,10 +76,15 @@ export default function RootLayout({
         },
       }}
     >
-      <html lang="ja">
-        <body>
+      <html
+        lang="ja"
+        className={`${notoSansJp.variable} ${notoSerifJp.variable}`}
+      >
+        <body className="from-background flex min-h-[100svh] w-screen flex-col bg-gradient-to-tl to-white antialiased">
           <Header />
-          {children}
+          <main className="flex grow items-center justify-center">
+            {children}
+          </main>
           <Toaster />
         </body>
       </html>
