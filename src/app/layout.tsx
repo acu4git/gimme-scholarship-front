@@ -22,6 +22,7 @@ export const metadata: Metadata = {
   title: "KITクレクレ奨学金",
   icons: {
     icon: [
+      { url: "/icon.svg", rel: "icon", type: "image/svg+xml" },
       { url: "/favicon.ico", rel: "icon", type: "image/x-icon" },
       {
         url: "/favicon-16x16.png",
