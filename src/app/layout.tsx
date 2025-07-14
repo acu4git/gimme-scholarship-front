@@ -36,7 +36,7 @@ export const metadata: Metadata = {
         type: "image/png",
       },
     ],
-    apple: [{ url: "/apple-touch-icon.png", rel: "apple-touch-icon" }],
+    apple: [{ url: "/apple-touch-icon/apple-touch-icon.png", rel: "apple-touch-icon" }],
   },
   manifest: "/manifest.json",
   openGraph: {
