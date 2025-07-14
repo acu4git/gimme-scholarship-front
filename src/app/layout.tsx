@@ -22,6 +22,7 @@ export const metadata: Metadata = {
   title: "KITクレクレ奨学金",
   icons: {
     icon: [
+      { url: "/icon.svg", rel: "icon", type: "image/svg+xml" },
       { url: "/favicon.ico", rel: "icon", type: "image/x-icon" },
       {
         url: "/favicon-16x16.png",
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
         type: "image/png",
       },
     ],
-    apple: [{ url: "/apple-touch-icon.png", rel: "apple-touch-icon" }],
+    apple: [{ url: "/apple-touch-icon/apple-touch-icon.png", rel: "apple-touch-icon" }],
   },
   manifest: "/manifest.json",
   openGraph: {
