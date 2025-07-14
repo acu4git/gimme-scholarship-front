@@ -15,7 +15,7 @@ import CustomUserButton from "./custom-user-button";
 const Header = () => {
   return (
     <header className="sticky top-0 z-50 flex h-16 items-center justify-between border-b-2 border-amber-300 bg-white">
-      <div className="mx-auto flex h-full w-full max-w-5xl flex-row items-center justify-between">
+      <div className="mx-auto flex h-full w-full flex-row items-center justify-between">
         <Link
           href="/"
           className="flex items-center self-stretch border-l-8 border-amber-500 bg-amber-300 px-3"

@@ -82,9 +82,7 @@ export default function RootLayout({
       >
         <body className="from-background flex min-h-[100svh] w-screen flex-col bg-gradient-to-tl to-white antialiased">
           <Header />
-          <main className="flex grow items-center justify-center">
-            {children}
-          </main>
+          <main className="mx-auto flex grow">{children}</main>
           <Toaster />
         </body>
       </html>
