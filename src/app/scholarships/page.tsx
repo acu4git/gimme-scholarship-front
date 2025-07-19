@@ -51,8 +51,8 @@ const ScholarshipsPage = async ({
           奨学金一覧({scholarships.length}件)
         </p>
       </div>
-      <div className="h-full flex justify-center">
-        <ul className="w-3/4 md:w-2/3 xl:w-1/2 flex flex-col justify-center gap-5 mb-10">
+      <div className="h-fit flex justify-center">
+        <ul className="w-3/4 md:w-2/3 xl:w-1/2 flex flex-col gap-5 mb-10">
           {scholarships.map((row, index) => (
             <Card key={row.id} className="border shadow-2xl">
               <CardHeader>
