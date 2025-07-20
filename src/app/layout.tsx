@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://kit-gimme-scholarship.com"),
 
   title: "KITクレクレ奨学金",
+  manifest: "/manifest.webmanifest",
   icons: {
     icon: [
       { url: "/icon.svg", rel: "icon", type: "image/svg+xml" },
@@ -37,9 +38,8 @@ export const metadata: Metadata = {
         type: "image/png",
       },
     ],
-    apple: [{ url: "/apple-touch-icon/apple-touch-icon.png", rel: "apple-touch-icon" }],
+    apple: "/apple-icon.png",
   },
-  manifest: "/manifest.json",
   openGraph: {
     title: "KITクレクレ奨学金",
     description:
